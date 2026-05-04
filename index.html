@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XiZhongTong | Yresr&MZTN™ Official Global</title>
+    <style>
+        :root {
+            --bg: #000;
+            --text: #fff;
+            --text-dim: #86868b;
+            --accent: #2997ff;
+            --border: rgba(255, 255, 255, 0.1);
+            --card-bg: #0a0a0a;
+            --ease: cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "PingFang SC", sans-serif;
+            line-height: 1.5;
+            overflow-x: hidden;
+        }
+
+        /* 导航 */
+        nav {
+            position: fixed; top: 0; width: 100%; height: 60px;
+            background: rgba(0,0,0,0.8); backdrop-filter: blur(20px);
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 0 5%; z-index: 1000; border-bottom: 0.5px solid var(--border);
+        }
+        .logo { font-weight: 800; font-size: 1.1rem; color: var(--accent); }
+        .nav-right { display: flex; gap: 12px; }
+
+        .btn {
+            background: #fff; color: #000; border: none; padding: 8px 16px;
+            border-radius: 20px; font-size: 0.75rem; font-weight: 600; cursor: pointer;
+            text-decoration: none; transition: 0.3s var(--ease);
+        }
+        .btn-outline { background: transparent; border: 1px solid var(--border); color: #fff; }
+        .btn:hover { transform: scale(1.05); background: var(--accent); color: #fff; }
+
+        /* Hero */
+        .hero {
+            height: 90vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
+            background: radial-gradient(circle at center, #111 0%, #000 100%);
+            padding: 0 20px;
+        }
+        .hero h1 { font-size: clamp(2.5rem, 8vw, 6rem); font-weight: 800; line-height: 1.1; margin-bottom: 20px; }
+        .hero p { color: var(--text-dim); max-width: 600px; font-size: 1.1rem; margin-bottom: 30px; }
+
+        /* AI 终端区 */
+        .section { padding: 80px 5%; max-width: 1200px; margin: 0 auto; }
+        .terminal-container {
+            background: var(--card-bg); border-radius: 20px; border: 1px solid #222; overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+        }
+        .terminal-header { background: #1a1a1a; padding: 12px 20px; display: flex; justify-content: space-between; }
+        #output {
+            height: 300px; padding: 25px; overflow-y: auto; font-family: monospace;
+            color: #d1d1d1; font-size: 0.9rem; white-space: pre-wrap; border-bottom: 1px solid #222;
+        }
+        .input-area { padding: 20px; display: flex; gap: 10px; background: #050505; }
+        .ai-input { flex: 1; background: #000; border: 1px solid #333; color: #fff; padding: 10px 15px; border-radius: 10px; }
+
+        /* 硬件演示 */
+        .visual-card {
+            background: linear-gradient(135deg, #111, #000); border: 1px solid var(--border);
+            border-radius: 30px; padding: 60px; text-align: center; margin-top: 40px;
+        }
+        .x-card-mock {
+            width: 260px; height: 160px; background: linear-gradient(135deg, #222, #000);
+            border-radius: 15px; margin: 0 auto 30px; border: 1px solid #444;
+            display: flex; flex-direction: column; justify-content: flex-end; padding: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8); transform: perspective(1000px) rotateX(10deg);
+        }
+
+        /* 开发者文档 */
+        .docs-box { background: #050505; padding: 40px; border-radius: 20px; margin-top: 40px; }
+        .code { background: #000; padding: 20px; border-radius: 10px; color: #a5d6ff; font-family: monospace; font-size: 0.85rem; margin-top: 20px; }
+
+        /* 新闻板块 */
+        .news-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 40px; }
+        .news-card { background: #111; padding: 25px; border-radius: 20px; border: 1px solid var(--border); }
+        .news-date { color: var(--accent); font-size: 0.7rem; font-weight: bold; margin-bottom: 5px; }
+
+        /* 页脚 */
+        footer { padding: 80px 5%; border-top: 1px solid #222; display: flex; justify-content: space-between; color: #555; font-size: 0.8rem; }
+
+        @media (max-width: 768px) {
+            footer { flex-direction: column; gap: 20px; text-align: center; }
+            .hero h1 { font-size: 2.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="logo">Yresr&MZTN™</div>
+    <div class="nav-right">
+        <a href="https://xizhongtong.mysxl.cn" class="btn btn-outline" id="nav-cn">Mainland Edition</a>
+        <button class="btn" onclick="toggleLang()" id="lang-btn">繁體中文</button>
+    </div>
+</nav>
+
+<section class="hero">
+    <h1 id="h-t">XiZhongTong.<br><span style="color: var(--accent)">Global.</span></h1>
+    <p id="h-s">The definitive AI-powered campus ecosystem. Merging software intelligence with next-gen IoT hardware. Developed by Yresr&MZTN™.</p>
+    <div style="display: flex; gap: 15px;">
+        <a href="https://xizhongtong.mysxl.cn" class="btn" id="btn-dl">Download APP</a>
+        <a href="mailto:mztnhzk@outlook.com" class="btn btn-outline" id="btn-ct">Email Support</a>
+    </div>
+</section>
+
+<!-- AI 对话区 -->
+<section class="section">
+    <h2 id="s1-t"> AI Laboratory</h2>
+    <div class="terminal-container">
+        <div class="terminal-header">
+            <div style="display: flex; gap: 6px;"><div style="width:10px;height:10px;border-radius:50%;background:#ff5f56"></div><div style="width:10px;height:10px;border-radius:50%;background:#ffbd2e"></div><div style="width:10px;height:10px;border-radius:50%;background:#27c93f"></div></div>
+            <div style="color:#444; font-size:0.7rem; font-family:monospace;">SESSION: XZT_CORE_V3</div>
+        </div>
+        <div id="output">> XZT_AI Global Node Active.<br>> Powered by DeepSeek-V3 API.<br>> Authenticated: Yresr&MZTN™ Official.</div>
+        <div class="input-area">
+            <input type="text" class="ai-input" id="user-in" placeholder="Query the system...">
+            <button class="btn" onclick="askDeepSeek()" id="btn-ask">Send</button>
+        </div>
+    </div>
+</section>
+
+<!-- 硬件愿景 -->
+<section class="section">
+    <div class="visual-card">
+        <div class="x-card-mock">
+            <div style="font-size: 0.5rem; color:#555;">Y&M SECURE ELEMENT</div>
+            <div style="font-weight: bold; letter-spacing: 2px;">X-CARD 2.0</div>
+        </div>
+        <h2 id="s2-t">The X-Card Ecosystem</h2>
+        <p id="s2-s" style="color:var(--text-dim); margin-top:20px;">Beyond the screen. In 2026 Q4, we deploy our proprietary hardware mesh: NFC verification, GPS child safety, and teachers' digital pass terminals.</p>
+    </div>
+</section>
+
+<!-- 开发文档 -->
+<section class="section">
+    <div class="docs-box">
+        <h2 id="s3-t">Developer Documentation</h2>
+        <p id="s3-s" style="color:var(--text-dim);">Pure frontend architecture. Lightweight. Scalable.</p>
+        <div class="code">
+            // Yresr&MZTN™ Core Configuration<br>
+            const XZT_GLOBAL = {<br>
+            &nbsp;&nbsp;engine: "DeepSeek-V3",<br>
+            &nbsp;&nbsp;hardware: "X-Card_v2_NFC",<br>
+            &nbsp;&nbsp;origin: "Zaozhuang_Shandong"<br>
+            };
+        </div>
+    </div>
+</section>
+
+<!-- 新闻动态 -->
+<section class="section">
+    <h2 id="s4-t">Global News</h2>
+    <div class="news-grid">
+        <div class="news-card">
+            <div class="news-date">2026.04.20</div>
+            <h4 id="n1-t">2.0 Hardware Roadmap</h4>
+            <p id="n1-d" style="color:#666; font-size:0.85rem;">From software to ecosystem. Full hardware integration timeline announced.</p>
+        </div>
+        <div class="news-card">
+            <div class="news-date">2026.03.15</div>
+            <h4 id="n2-t">1.0 Success Conclusion</h4>
+            <p id="n2-d" style="color:#666; font-size:0.85rem;">Trial period ends with 99% student satisfaction across campus networks.</p>
+        </div>
+        <div class="news-card">
+            <div class="news-date">Official</div>
+            <h4 id="n3-t">Contact mztnhzk@outlook.com</h4>
+            <p id="n3-d" style="color:#666; font-size:0.85rem;">For international cooperation and tech support inquiries.</p>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div>
+        <p>© 2026 Yresr&MZTN™ Team</p>
+        <p id="f-l">All Rights Reserved. Origin: Zaozhuang, Shandong.</p>
+    </div>
+    <div style="text-align: right;">
+        <p>Dev: Wu Tao, Zhang Chenyu | PR: Wu Fan</p>
+        <p>mztnhzk@outlook.com</p>
+    </div>
+</footer>
+
+<script>
+    const API_KEY = "sk-139eea4388ee416ca67da7c4fa60978c";
+    const API_URL = "https://api.deepseek.com/chat/completions";
+
+    async function askDeepSeek() {
+        const input = document.getElementById('user-in');
+        const output = document.getElementById('output');
+        const text = input.value.trim();
+        if (!text) return;
+
+        output.innerHTML += `\n\n<b>> User:</b> ${text}\n<b>> XZT_AI:</b> `;
+        input.value = '';
+        output.scrollTop = output.scrollHeight;
+
+        try {
+            const response = await fetch(API_URL, {
+                method: "POST",
+                headers: { "Content-Type": "application/json", "Authorization": `Bearer ${API_KEY}` },
+                body: JSON.stringify({
+                    model: "deepseek-chat",
+                    messages: [
+                        {role: "system", content: "你现在是奚仲通官方AI助手，由Yresr&MZTN™团队开发。请以专业、科技感的口吻回答校园和科创相关问题。"},
+                        {role: "user", content: text}
+                    ]
+                })
+            });
+            const data = await response.json();
+            const reply = data.choices[0].message.content;
+            
+            let i = 0;
+            const timer = setInterval(() => {
+                output.innerHTML += reply.charAt(i);
+                output.scrollTop = output.scrollHeight;
+                i++;
+                if (i >= reply.length) clearInterval(timer);
+            }, 15);
+        } catch (e) {
+            output.innerHTML += "Connection Error. Check API status.";
+        }
+    }
+
+    const dict = {
+        en: {
+            lang: "繁體中文", cn: "Mainland Edition", ht: "XiZhongTong.<br><span style='color: #2997ff'>Global.</span>",
+            hs: "The definitive AI-powered campus ecosystem. Merging software intelligence with next-gen IoT hardware. Developed by Yresr&MZTN™.",
+            dl: "Download APP", ct: "Email Support", s1t: " AI Laboratory", s2t: "The X-Card Ecosystem",
+            s2s: "Beyond the screen. In 2026 Q4, we deploy our proprietary hardware mesh: NFC, GPS, and digital passes.",
+            s3t: "Developer Documentation", s4t: "Global News", n1t: "2.0 Hardware Roadmap", n2t: "1.0 Success Conclusion",
+            fl: "All Rights Reserved. Origin: Zaozhuang, Shandong."
+        },
+        tw: {
+            lang: "English", cn: "返回大陸版", ht: "奚仲通。<br><span style='color: #2997ff'>全球版。</span>",
+            hs: "定義未來的 AI 校園生態系統。將軟體智慧與下一代物聯網硬體完美融合。由 Yresr&MZTN™ 團隊開發。",
+            dl: "下載 APP", ct: "郵件支持", s1t: " AI 實驗室", s2t: "X-Card 硬體生態",
+            s2s: "超越屏幕限制。2026 年 Q4，我們將部署專有的硬體矩陣：NFC 考勤、GPS 安全防護及電子假條。",
+            s3t: "開發者技術文檔", s4t: "全球動態", n1t: "2.0 硬體路線圖發布", n2t: "1.0 試用圓滿結束",
+            fl: "版權所有。源自中國山東·棗莊（奚仲故里）。"
+        }
+    };
+
+    let cur = 'en';
+    function toggleLang() {
+        cur = cur === 'en' ? 'tw' : 'en';
+        const t = dict[cur];
+        document.getElementById('lang-btn').innerText = t.lang;
+        document.getElementById('nav-cn').innerText = t.cn;
+        document.getElementById('h-t').innerHTML = t.ht;
+        document.getElementById('h-s').innerText = t.hs;
+        document.getElementById('btn-dl').innerText = t.dl;
+        document.getElementById('btn-ct').innerText = t.ct;
+        document.getElementById('s1-t').innerText = t.s1t;
+        document.getElementById('s2-t').innerText = t.s2t;
+        document.getElementById('s2-s').innerText = t.s2s;
+        document.getElementById('s3-t').innerText = t.s3t;
+        document.getElementById('s4-t').innerText = t.s4t;
+        document.getElementById('n1-t').innerText = t.n1t;
+        document.getElementById('n2-t').innerText = t.n2t;
+        document.getElementById('f-l').innerText = t.fl;
+    }
+</script>
+
+</body>
+</html>
