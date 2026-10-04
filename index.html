@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Xizhongtong Online</title>
+  <style>
+    /* Global Fonts Supporting EN, TC, RU, FR */
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Sans:wght@300;400;500;700&display=swap');
+
+    :root {
+      --primary-color: #000000;
+      --bg-color: #f7f7f9;
+      --card-bg: #ffffff;
+      --text-main: #1a1a1a;
+      --text-sub: #767676;
+      --magic-cyan: #e0f2fe;
+      --magic-purple: #f3e8ff;
+      --magic-pink: #fce7f3;
+      --radius-sm: 16px;
+      --radius-md: 28px;
+      --radius-lg: 40px;
+      --font-family: 'Noto Sans', 'Noto Sans TC', -apple-system, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      font-family: var(--font-family);
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    /* Glassmorphism Header */
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      height: 64px;
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: saturate(150%) blur(24px);
+      -webkit-backdrop-filter: saturate(150%) blur(24px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 5%;
+      z-index: 1000;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.03);
+    }
+
+    .brand {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--primary-color);
+      text-decoration: none;
+      letter-spacing: 0.5px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text-main);
+      font-weight: 500;
+      font-size: 15px;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: #0055ff;
+    }
+
+    .tools {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    /* Modern Styled Select for Language */
+    .lang-select {
+      background: rgba(0, 0, 0, 0.05);
+      border: none;
+      border-radius: 100px;
+      padding: 6px 14px 6px 16px;
+      font-size: 13px;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      color: var(--text-main);
+      outline: none;
+      appearance: none;
+      -webkit-appearance: none;
+      background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2212%22%20height%3D%2212%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%231a1a1a%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpolyline%20points%3D%226%209%2012%2015%2018%209%22%3E%3C%2Fpolyline%3E%3C%2Fsvg%3E");
+      background-repeat: no-repeat;
+      background-position: right 10px center;
+      padding-right: 30px;
+      transition: all 0.3s;
+    }
+
+    .lang-select:hover {
+      background-color: rgba(0, 0, 0, 0.08);
+    }
+
+    /* MagicOS Aurora Hero */
+    .hero {
+      position: relative;
+      padding: 160px 5% 100px;
+      text-align: center;
+      background: linear-gradient(135deg, var(--magic-cyan) 0%, var(--magic-purple) 50%, var(--magic-pink) 100%);
+      border-bottom-left-radius: var(--radius-lg);
+      border-bottom-right-radius: var(--radius-lg);
+      overflow: hidden;
+      margin-bottom: 40px;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: -50%; left: -50%; width: 200%; height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 60%);
+      animation: aura 10s infinite linear;
+      z-index: 0;
+    }
+
+    @keyframes aura {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .hero-title {
+      font-size: clamp(40px, 6vw, 64px);
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 16px;
+      letter-spacing: -0.02em;
+    }
+
+    .hero-subtitle {
+      font-size: clamp(16px, 2.5vw, 20px);
+      color: rgba(0, 0, 0, 0.6);
+      margin-bottom: 40px;
+      font-weight: 400;
+    }
+
+    .btn-group {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      text-decoration: none;
+      padding: 12px 32px;
+      border-radius: 100px;
+      font-size: 16px;
+      font-weight: 600;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .btn-primary {
+      background: var(--primary-color);
+      color: #fff;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 24px rgba(0,0,0,0.2);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.6);
+      color: var(--primary-color);
+      backdrop-filter: blur(10px);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.9);
+      transform: translateY(-2px);
+    }
+
+    /* Bento Grid Layout */
+    .bento-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
+      padding: 0 5%;
+      max-width: 1400px;
+      margin: 0 auto 60px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--radius-md);
+      padding: 40px;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .card:hover {
+      transform: translateY(-6px) scale(1.01);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+    }
+
+    .card.dark {
+      background: #1a1a1a;
+      color: #fff;
+    }
+
+    .card.dark .card-desc {
+      color: #a0a0a0;
+    }
+
+    .card-tag {
+      font-size: 13px;
+      font-weight: 600;
+      padding: 4px 12px;
+      background: rgba(0,0,0,0.05);
+      border-radius: 100px;
+      margin-bottom: 20px;
+    }
+    
+    .card.dark .card-tag {
+      background: rgba(255,255,255,0.1);
+    }
+
+    .card-title {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .card-desc {
+      font-size: 15px;
+      color: var(--text-sub);
+      margin-bottom: auto;
+    }
+
+    .card-link {
+      margin-top: 24px;
+      font-size: 15px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Footer */
+    footer {
+      background: #fff;
+      padding: 60px 5% 40px;
+      border-top-left-radius: var(--radius-lg);
+      border-top-right-radius: var(--radius-lg);
+      color: var(--text-sub);
+      font-size: 13px;
+    }
+
+    .footer-content {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+      padding-bottom: 24px;
+    }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hero { padding: 120px 5% 60px; }
+      .bento-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <a href="https://xizhongtong.mysxl.cn/" class="brand">Xizhongtong</a>
+    <ul class="nav-links">
+      <li><a href="#home" data-i18n="nav_home">Home</a></li>
+      <!-- 官方公告修改为直接跳转到指定的分类页面 -->
+      <li><a href="https://xizhongtong.mysxl.cn/blog/categories" target="_blank" data-i18n="nav_articles">Notices</a></li>
+      <li><a href="#join" data-i18n="nav_join">Join Us</a></li>
+      <li><a href="https://xizhongtongapi.mysxl.cn/" target="_blank" data-i18n="nav_api">Open API</a></li>
+    </ul>
+    <div class="tools">
+      <select class="lang-select" id="langSelector" onchange="changeLanguage()">
+        <option value="en">English</option>
+        <option value="zh-TW">繁體中文</option>
+        <option value="ru">Русский</option>
+        <option value="fr">Français</option>
+      </select>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero" id="home">
+    <div class="hero-content">
+      <h1 class="hero-title" data-i18n="hero_title">Creative Solutions<br>for Campus Life</h1>
+      <p class="hero-subtitle" data-i18n="hero_subtitle">Making intelligence accessible everywhere. A mature hardware & software ecosystem.</p>
+      <div class="btn-group">
+        <!-- 下载App按钮修改为跳转到官方原版网页 -->
+        <a href="https://xizhongtong.mysxl.cn/" target="_blank" class="btn btn-primary" data-i18n="hero_btn_dl">Download App</a>
+        <a href="https://mztnhzk.github.io/cx/" target="_blank" class="btn btn-secondary" data-i18n="hero_btn_club">Tech Club</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Bento Grid Cards -->
+  <section class="bento-grid">
+    
+    <a href="https://xizhongtong.mysxl.cn/blog/hzk-view-3" target="_blank" class="card dark">
+      <span class="card-tag" data-i18n="tag_ai">Core Tech</span>
+      <h2 class="card-title">HZK View 3</h2>
+      <p class="card-desc" data-i18n="desc_hzk">LLM Technical Report (HZK-V3-TR-2026-001). Powering the foundation of smart campus.</p>
+      <span class="card-link" data-i18n="link_read">Read Report &rarr;</span>
+    </a>
+
+    <!-- 原本的占位链接修改为跳转到原版网页 -->
+    <a href="https://xizhongtong.mysxl.cn/" target="_blank" class="card">
+      <span class="card-tag" data-i18n="tag_os">Smartcard Kernel</span>
+      <h2 class="card-title">Xz.s OS</h2>
+      <p class="card-desc" data-i18n="desc_xzs">Exclusive OS for Lot Campus Cards. Minimalist, efficient interactions. Download ROM here.</p>
+      <span class="card-link" data-i18n="link_download">Download &rarr;</span>
+    </a>
+
+    <a href="https://xizhongtong.mysxl.cn/blog/yresr-mztn-xizhongtong" target="_blank" class="card">
+      <span class="card-tag" data-i18n="tag_team">Yresr&MZTN</span>
+      <h2 class="card-title" data-i18n="title_team">Our Story</h2>
+      <p class="card-desc" data-i18n="desc_team">From social pain points to functional innovation—led by Xizhong Middle School students.</p>
+      <span class="card-link" data-i18n="link_story">Read Story &rarr;</span>
+    </a>
+
+    <a href="mailto:MZTNHZK@outlook.com" class="card" id="join">
+      <span class="card-tag" data-i18n="tag_join">2026 Recruitment</span>
+      <h2 class="card-title" data-i18n="title_join">Join the Journey</h2>
+      <p class="card-desc" data-i18n="desc_join">Open to students in Shandong. Join the core dev team via online interviews.</p>
+      <span class="card-link" data-i18n="link_join">Apply Now &rarr;</span>
+    </a>
+
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-links">
+        <a href="https://xizhongtong.mysxl.cn/blog/524f2cab77d" target="_blank" style="color:inherit; text-decoration:none;" data-i18n="footer_roster">Developer Roster</a>
+        <a href="https://xizhongtongapi.mysxl.cn/" target="_blank" style="color:inherit; text-decoration:none;" data-i18n="footer_api">API Portal</a>
+      </div>
+      <div class="footer-bottom">
+        <div data-i18n="footer_rights">&copy; 2016-2026 Yresr&MZTN™. All rights reserved.</div>
+        <div>
+          <span data-i18n="footer_contact">Contact: </span>MZTNHZK@outlook.com
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- 4-Language Dictionary & Logic -->
+  <script>
+    const i18n = {
+      "en": {
+        nav_home: "Home",
+        nav_articles: "Notices",
+        nav_join: "Join Us",
+        nav_api: "Open API",
+        hero_title: "Creative Solutions<br>for Campus Life",
+        hero_subtitle: "Making intelligence accessible everywhere. A mature hardware & software ecosystem.",
+        hero_btn_dl: "Download App",
+        hero_btn_club: "Tech Club",
+        tag_ai: "Core Tech",
+        desc_hzk: "LLM Technical Report (HZK-V3-TR-2026-001). Powering the foundation of smart campus.",
+        link_read: "Read Report \u2192",
+        tag_os: "Smartcard Kernel",
+        desc_xzs: "Exclusive OS for Lot Campus Cards. Minimalist, efficient interactions. Download ROM here.",
+        link_download: "Download \u2192",
+        tag_team: "Yresr&MZTN",
+        title_team: "Our Story",
+        desc_team: "From social pain points to functional innovation—led by Xizhong Middle School students.",
+        link_story: "Read Story \u2192",
+        tag_join: "2026 Recruitment",
+        title_join: "Join the Journey",
+        desc_join: "Open to students in Shandong. Join the core dev team via online interviews.",
+        link_join: "Apply Now \u2192",
+        footer_roster: "Developer Roster",
+        footer_api: "API Portal",
+        footer_rights: "&copy; 2016-2026 Yresr&MZTN\u2122. All rights reserved.",
+        footer_contact: "Contact: "
+      },
+      "zh-TW": {
+        nav_home: "主頁",
+        nav_articles: "官方公告",
+        nav_join: "加入我們",
+        nav_api: "開放平臺",
+        hero_title: "為校園生活提供<br>創意性的解決方案",
+        hero_subtitle: "便利於處處，使得處處智慧。滿足各方面需求的成熟化軟硬體一體方案。",
+        hero_btn_dl: "下載用戶端",
+        hero_btn_club: "科創社團主頁",
+        tag_ai: "底層技術",
+        desc_hzk: "大語言模型技術報告 (HZK-V3-TR-2026-001)。全面賦能智慧校園底層基座。",
+        link_read: "閱讀報告 \u2192",
+        tag_os: "校園卡微內核",
+        desc_xzs: "Lot 校園卡專屬系統，打造極簡、高效的便攜設備交互體驗。線上下載固件 ROM。",
+        link_download: "前往下載 \u2192",
+        tag_team: "Yresr&MZTN",
+        title_team: "開發歷程",
+        desc_team: "從社交痛點到功能創新——由奚仲中學學生主導的「奚仲通」軟體開發紀實。",
+        link_story: "瞭解故事 \u2192",
+        tag_join: "2026 招募",
+        title_join: "共赴星辰大海",
+        desc_join: "本欄目只適用於山東省內學生，通過網路面試參與後續審批，加入核心開發組。",
+        link_join: "提交申請 \u2192",
+        footer_roster: "開發人員公示",
+        footer_api: "API 開放平臺",
+        footer_rights: "&copy; 2016-2026 Yresr&MZTN\u2122. 保留所有權利。",
+        footer_contact: "聯絡郵箱："
+      },
+      "ru": {
+        nav_home: "Главная",
+        nav_articles: "Уведомления",
+        nav_join: "Присоединиться",
+        nav_api: "Open API",
+        hero_title: "Креативные решения<br>для жизни кампуса",
+        hero_subtitle: "Интеллект повсюду. Зрелая экосистема аппаратного и программного обеспечения.",
+        hero_btn_dl: "Скачать",
+        hero_btn_club: "Тех. клуб",
+        tag_ai: "Базовые технологии",
+        desc_hzk: "Технический отчет LLM (HZK-V3-TR-2026-001). Основа умного кампуса.",
+        link_read: "Читать отчет \u2192",
+        tag_os: "Ядро Smartcard",
+        desc_xzs: "Эксклюзивная ОС для карт Lot Campus. Минимализм и эффективность. Скачать ROM.",
+        link_download: "Скачать \u2192",
+        tag_team: "Yresr&MZTN",
+        title_team: "Наша история",
+        desc_team: "От социальных проблем к инновациям — проект студентов средней школы Сичжун.",
+        link_story: "Читать \u2192",
+        tag_join: "Набор 2026",
+        title_join: "Присоединяйтесь",
+        desc_join: "Открыто для студентов Шаньдуна. Присоединяйтесь к основной команде разработчиков.",
+        link_join: "Подать заявку \u2192",
+        footer_roster: "Список разработчиков",
+        footer_api: "Портал API",
+        footer_rights: "&copy; 2016-2026 Yresr&MZTN\u2122. Все права защищены.",
+        footer_contact: "Контакты: "
+      },
+      "fr": {
+        nav_home: "Accueil",
+        nav_articles: "Annonces",
+        nav_join: "Rejoindre",
+        nav_api: "Open API",
+        hero_title: "Solutions Créatives<br>pour le Campus",
+        hero_subtitle: "Rendre l'intelligence accessible partout. Un écosystème matériel et logiciel mature.",
+        hero_btn_dl: "Télécharger",
+        hero_btn_club: "Club Tech",
+        tag_ai: "Technologie",
+        desc_hzk: "Rapport Technique LLM (HZK-V3-TR-2026-001). Alimenter la fondation du campus intelligent.",
+        link_read: "Lire le Rapport \u2192",
+        tag_os: "Noyau Smartcard",
+        desc_xzs: "OS exclusif pour Lot Campus Cards. Interactions minimalistes. Télécharger la ROM.",
+        link_download: "Télécharger \u2192",
+        tag_team: "Yresr&MZTN",
+        title_team: "Notre Histoire",
+        desc_team: "Des problèmes sociaux à l'innovation fonctionnelle — dirigé par les élèves du collège Xizhong.",
+        link_story: "Lire l'Histoire \u2192",
+        tag_join: "Recrutement 2026",
+        title_join: "Rejoignez l'Aventure",
+        desc_join: "Ouvert aux étudiants du Shandong. Rejoignez l'équipe de développement principale.",
+        link_join: "Postuler \u2192",
+        footer_roster: "Développeurs",
+        footer_api: "Portail API",
+        footer_rights: "&copy; 2016-2026 Yresr&MZTN\u2122. Tous droits réservés.",
+        footer_contact: "Contact : "
+      }
+    };
+
+    function changeLanguage() {
+      const lang = document.getElementById('langSelector').value;
+      const dict = i18n[lang];
+      
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (dict[key]) {
+          el.innerHTML = dict[key];
+        }
+      });
+      
+      document.documentElement.lang = lang;
+    }
+  </script>
+</body>
+</html>
